@@ -1,59 +1,350 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Lissy93/dashy/master/src/utils/config/ConfigSchema.json
 ---
-# Page meta info, like heading, footer text and nav links
 pageInfo:
-  title: Dashy
-  description: Welcome to your new dashboard!
-  navLinks:
-  - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
-
-# Optional app settings and configuration
+  title: Nexus Hub
+  description: Personal & Business Command Center
+  navLinks: []
 appConfig:
-  theme: colorful
-
-# Main content - An array of sections, each containing an array of items
+  theme: default
+  layout: auto
+  iconSize: medium
+  hideComponents:
+    hideNav: true
+    hideSearch: false
+    hideSettings: true
+  customCss: |-
+    body, html, #app {
+      background: #f8fafc !important;
+      color: #0f172a !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif !important;
+    }
+    header.site-header, header {
+      background: #ffffff !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 1.25rem 2rem !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    }
+    header h1, .page-titles h1 {
+      color: #0f172a !important;
+      font-size: 1.75rem !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.025em !important;
+    }
+    .page-titles span.subtitle {
+      color: #64748b !important;
+      font-size: 0.95rem !important;
+    }
+    .options-outer, .settings-outer, footer {
+      display: none !important;
+    }
+    .filter-container, section.filter-container {
+      display: flex !important;
+      justify-content: center !important;
+      background: transparent !important;
+      padding: 1.25rem 1rem !important;
+    }
+    .filter-container form {
+      max-width: 620px !important;
+      width: 100% !important;
+      background: #ffffff !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+      padding: 0.5rem 1rem !important;
+      transition: all 0.2s ease !important;
+    }
+    .filter-container form:focus-within {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+    }
+    .filter-container input#filter-tiles {
+      font-size: 1.05rem !important;
+      color: #0f172a !important;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+    }
+    .collapsable {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 14px !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+      padding: 1.25rem !important;
+      margin-bottom: 2rem !important;
+    }
+    .section-header h3 {
+      color: #0f172a !important;
+      font-size: 1.2rem !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.01em !important;
+      margin-bottom: 1rem !important;
+    }
+    .item-wrapper {
+      margin: 0.35rem !important;
+    }
+    .item-wrapper .item, a.item {
+      display: flex !important;
+      align-items: center !important;
+      min-width: 220px !important;
+      max-width: none !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04) !important;
+      padding: 0.9rem 1.2rem !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .item-wrapper .item:hover, a.item:hover {
+      background: #ffffff !important;
+      border-color: #2563eb !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.18) !important;
+    }
+    .tile-title {
+      max-width: none !important;
+      width: 100% !important;
+    }
+    .tile-title span.text {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+      font-size: 1rem !important;
+      display: block !important;
+    }
+    .tile-title p.description {
+      color: #64748b !important;
+      font-size: 0.85rem !important;
+      font-weight: 500 !important;
+      margin-top: 0.2rem !important;
+    }
+    .tile-icon, .item-icon {
+      width: 28px !important;
+      height: 28px !important;
+      min-width: 28px !important;
+      margin-right: 0.75rem !important;
+      color: #2563eb !important;
+    }
 sections:
-  - name: Getting Started
-    icon: fas fa-rocket
+  - name: Taller & Automoción
+    icon: fas fa-wrench
     items:
-      - title: GitHub
-        description: Source Code, Issues and Pull Requests
-        url: https://github.com/lissy93/dashy
-        icon: si-github
-      - title: Docs
-        description: Configuring & Usage Documentation
-        provider: Dashy.to
-        icon: far fa-book
-        url: https://dashy.to/docs
-
-  - name: Support Dashy
-    icon: fas fa-heart
-    displayData:
-      itemSize: large
-    widgets:
-      - type: image
-        label: Dashy is made possible thanks to our awesome sponsors
-        options:
-          imagePath: https://readme-contribs.as93.net/sponsors/lissy93?perRow=5&shape=squircle
+      - title: Mercedes-Benz
+        description: Portal Mercedes-Benz
+        url: https://login.mercedes-benz.com
+        icon: si-mercedes
+      - title: Tesla
+        description: Portal Tesla Auth
+        url: https://auth.tesla.com
+        icon: si-tesla
+      - title: 4DC Workshop (Romo)
+        description: Gestión de taller
+        url: https://autotalleresromosa.4dcworkshop.com
+        icon: fas fa-car
+      - title: Cita Romo
+        description: Sistema de citas
+        url: https://citaromo.es
+        icon: fas fa-calendar-check
+      - title: Vacaciones Romo
+        description: Portal interno
+        url: https://vacaciones.romo-mercedesbenz.es
+        icon: fas fa-calendar-alt
+      - title: Davasa B2B
+        description: Recambios Davasa
+        url: https://b2b.davasaautomocion.com
+        icon: fas fa-cogs
+      - title: Nex Tyres B2B
+        description: Distribuidor neumáticos
+        url: https://b2b.nex.es
+        icon: fas fa-circle-notch
+      - title: M-Recambios
+        description: Facturación y recambios
+        url: https://facturacion.m-recambios.com
+        icon: fas fa-file-invoice
+      - title: Portal ITV
+        description: Citas y gestión ITV
+        url: https://portalitv.com
+        icon: fas fa-clipboard-check
+      - title: Signus
+        description: Gestión neumáticos usados
+        url: https://signus.es
+        icon: fas fa-recycle
+      - title: CATOR
+        description: Área clientes aceites
+        url: https://areaclientes.cator-sa.com
+        icon: fas fa-oil-can
+      - title: ARC Racing
+        description: Reparación de llantas
+        url: https://arc-racing.com
+        icon: fas fa-flag-checkered
+  - name: Banca & Pagos
+    icon: fas fa-wallet
     items:
-      - title: Sponsor
-        url: https://github.com/sponsors/lissy93
-        description: Sponsor @Lissy93 on GitHub to support with ongoing development of Dashy
-        icon: 🩷
-        color: '#ff78d1'
-        backgroundColor: '#c30c844a'
-
-  - name: Latest Updates
-    icon: fas fa-code-branch
-    displayData:
-      cols: 1
-      rows: 3
-      cutToHeight: true
-    widgets:
-      - type: rss-feed
-        options:
-          rssUrl: https://github.com/lissy93/dashy/releases.atom
-          limit: 5
+      - title: CaixaBank
+        description: Banca online
+        url: https://caixabank.es
+        icon: fas fa-university
+      - title: Banco Santander
+        description: Acceso particulares
+        url: https://particulares.bancosantander.es
+        icon: fas fa-building
+      - title: PayPal
+        description: Pagos y transferencias
+        url: https://paypal.com
+        icon: si-paypal
+      - title: Stripe Dashboard
+        description: Panel de control cobros
+        url: https://dashboard.stripe.com
+        icon: si-stripe
+      - title: Redsys TPV
+        description: Acceso pasarela TPV
+        url: https://acceso.redsys.es
+        icon: fas fa-credit-card
+      - title: Canales Redsys
+        description: Gestión comercios
+        url: https://canales.redsys.es
+        icon: fas fa-network-wired
+      - title: Ace Money Transfer
+        description: Envíos de dinero
+        url: https://acemoneytransfer.com
+        icon: fas fa-money-bill-wave
+      - title: Grenke Renting
+        description: Portal cliente financiación
+        url: https://customerportal.grenke.net
+        icon: fas fa-file-contract
+  - name: Transporte & Taxis
+    icon: fas fa-taxi
+    items:
+      - title: FREE NOW
+        description: Portal de flota / conductor
+        url: https://portal.free-now.com
+        icon: si-freenow
+      - title: Barcelona Taxis
+        description: Servicios y traslados
+        url: https://barcelonastaxis.com
+        icon: fas fa-taxi
+      - title: Bókun Extranet
+        description: Gestión de reservas
+        url: https://extranet.bokun.io
+        icon: fas fa-globe
+      - title: Taxi2BCN
+        description: Reservas traslados
+        url: https://taxi2bcn.bokun.io
+        icon: fas fa-map-marker-alt
+      - title: EasyRide Admin
+        description: Panel de administración
+        url: https://easyride-admin.onrender.com
+        icon: fas fa-car-side
+  - name: Administración & Seguros
+    icon: fas fa-landmark
+    items:
+      - title: Feina Activa Gencat
+        description: Generalitat de Catalunya
+        url: https://feinaactiva.gencat.cat
+        icon: fas fa-briefcase
+      - title: ARC Residus Gencat
+        description: Declaración de residuos SDR
+        url: https://sdr.arc.cat
+        icon: fas fa-dumpster
+      - title: Asepeyo
+        description: Oficina Virtual Mutua
+        url: https://oficinavirtual.asepeyo.es
+        icon: fas fa-user-shield
+      - title: Mapfre
+        description: Mi Cuenta Seguros
+        url: https://micuenta.mapfre.es
+        icon: fas fa-shield-alt
+      - title: Mutua Madrileña
+        description: Acceso asegurados
+        url: https://sso.mutua.es
+        icon: fas fa-hand-holding-heart
+      - title: Aigües de Barcelona
+        description: Gestión de suministros
+        url: https://aiguesdebarcelona.cat
+        icon: fas fa-tint
+      - title: Telefónica
+        description: Portal de autenticación
+        url: https://paut.telefonica.es
+        icon: fas fa-phone
+      - title: Universitat de Barcelona
+        description: Campus UB
+        url: https://ub.edu
+        icon: fas fa-graduation-cap
+  - name: Cuentas & Herramientas
+    icon: fas fa-laptop-code
+    items:
+      - title: Microsoft Online
+        description: Acceso Office 365 / Outlook
+        url: https://login.microsoftonline.com
+        icon: si-microsoft
+      - title: Microsoft Account
+        description: Cuenta personal Microsoft
+        url: https://account.live.com
+        icon: si-windows
+      - title: Apple ID
+        description: Gestión de cuenta Apple
+        url: https://appleid.apple.com
+        icon: si-apple
+      - title: Samsung Account
+        description: Cuenta Samsung
+        url: https://account.samsung.com
+        icon: si-samsung
+      - title: Router Local
+        description: Configuración router 192.168.1.1
+        url: http://192.168.1.1
+        icon: fas fa-wifi
+      - title: HP Connect
+        description: ID de cuenta HP
+        url: https://login3.id.hp.com
+        icon: si-hp
+      - title: Sejda PDF
+        description: Editor y conversor PDF
+        url: https://sejda.com
+        icon: fas fa-file-pdf
+      - title: Formspree
+        description: Gestión de formularios
+        url: https://formspree.io
+        icon: fas fa-envelope-open-text
+      - title: Discord
+        description: Comunidad y chat
+        url: https://discord.com
+        icon: si-discord
+  - name: Compras & Viajes
+    icon: fas fa-shopping-bag
+    items:
+      - title: BonÀrea
+        description: Portal clientes
+        url: https://portal.bonarea.com
+        icon: fas fa-store
+      - title: AliExpress
+        description: Compras y envíos
+        url: https://es.aliexpress.com
+        icon: si-aliexpress
+      - title: Sklum
+        description: Mobiliario y decoración
+        url: https://sklum.com
+        icon: fas fa-couch
+      - title: Material Escolar
+        description: Papelería y suministros
+        url: https://materialescolar.es
+        icon: fas fa-pencil-alt
+      - title: TripAdvisor
+        description: Opiniones y viajes
+        url: https://tripadvisor.com
+        icon: si-tripadvisor
+      - title: Trip.com
+        description: Vuelos y hoteles
+        url: https://trip.com
+        icon: fas fa-plane
+      - title: Logitravel
+        description: Afiliados y reservas
+        url: https://partner.affiliate.logitravel.com
+        icon: fas fa-suitcase
+      - title: Instagram
+        description: Red social
+        url: https://instagram.com
+        icon: si-instagram
+      - title: Facebook
+        description: Red social
+        url: https://facebook.com
+        icon: si-facebook
