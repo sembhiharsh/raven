@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import svgLoader from 'vite-svg-loader';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readFileSync, copyFileSync, existsSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8'));
@@ -16,6 +16,28 @@ function serveUserData() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (!req.url) return next();
+
+        // Handle POST /config-manager/save in dev server
+        if (req.method === 'POST' && req.url.startsWith('/config-manager/save')) {
+          let body = '';
+          req.on('data', (chunk) => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const data = JSON.parse(body);
+              const filename = data.filename || 'conf.yml';
+              const targetPath = path.join(userDataDir, filename);
+              writeFileSync(targetPath, data.config, 'utf-8');
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, message: 'Config saved to disk successfully' }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: false, message: err.message }));
+            }
+          });
+          return;
+        }
+
         const filePath = path.join(userDataDir, req.url.split('?')[0]);
         try {
           const content = readFileSync(filePath);
@@ -58,14 +80,13 @@ export default defineConfig({
       registerType: 'prompt',
       useCredentials: true,
       manifest: {
-        name: 'Dashy',
+        name: 'Thin',
         theme_color: '#00af87',
         background_color: '#0b1021',
         icons: [
           { src: '/web-icons/favicon-64x64.png', sizes: '64x64', type: 'image/png' },
           { src: '/web-icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
           { src: '/web-icons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-          { src: '/web-icons/dashy-logo.png', sizes: '512x512', type: 'image/png' },
         ],
       },
       workbox: {
@@ -90,7 +111,7 @@ export default defineConfig({
             urlPattern: /\.ya?ml(\?.*)?$/i,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'dashy-config',
+              cacheName: 'thin-config',
               networkTimeoutSeconds: 3,
               expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 },
               cacheableResponse: { statuses: [200] },

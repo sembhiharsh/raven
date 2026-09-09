@@ -18,38 +18,61 @@
       :id="`link-${item.id}`"
       :style="customStyle"
     >
-      <!-- Item Text -->
-      <div :id="`tile-${item.id}`" :class="`tile-title ${!itemIcon? 'bounce no-icon': ''}`">
-        <span ref="titleText" class="text">{{ item.title }}</span>
-        <p class="description">{{ item.description }}</p>
-      </div>
       <!-- Item Icon -->
       <Icon :icon="itemIcon" :url="item.url" :size="size" :color="item.color"
         v-bind:style="customStyles" class="bounce" />
-      <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon"
-        :isSmall="!itemIcon || size === 'small'"
-        :openingMethod="accumulatedTarget"  position="bottom right"
-        :hotkey="item.hotkey" />
-      <div class="indicators-container">
-        <!-- Status indicator dot (if enabled) showing weather service is available -->
-        <StatusIndicator
-          v-if="enableStatusCheck"
-          :statusSuccess="statusResponse?.successStatus"
-          :statusText="statusResponse?.message"
-          :statusAccessibility="appConfig.statusCheckAccessibility"
-        />
-        <!-- Status indicator dot (if enabled) showing host ping status -->
-        <StatusIndicator
-          v-if="isPingCheckEnabled"
-          :statusSuccess="pingResponse?.successStatus"
-          :statusText="pingResponse?.message"
-          :statusTimeout="pingCheckTimeout"
-          :statusAccessibility="appConfig.pingCheckAccessibility"
-        />
+
+      <!-- Item Content Container (Title + Subtitle & User) -->
+      <div :id="`tile-${item.id}`" :class="`tile-title ${!itemIcon? 'bounce no-icon': ''}`">
+        <div class="tile-main-row">
+          <span ref="titleText" class="text" :title="item.title">{{ item.title }}</span>
+        </div>
+        <div class="tile-sub-row" v-if="cleanDescription || item.username">
+          <span class="meta-desc" v-if="cleanDescription">{{ cleanDescription }}</span>
+          <span class="meta-sep" v-if="cleanDescription && item.username">•</span>
+          <div
+            v-if="item.username"
+            class="tile-username-badge"
+            @click.stop.prevent="copyUsername"
+            :title="`Copiar usuario: ${item.username}`"
+          >
+            <i :class="copiedUsername ? 'fas fa-check' : 'far fa-user'"></i>
+            <span class="username-val">{{ copiedUsername ? '¡Copiado!' : item.username }}</span>
+          </div>
+        </div>
       </div>
-      <!-- URL of the item (shown on hover, only on some themes) -->
-      <p class="item-url">{{ shortUrl(item.url) }}</p>
+
+      <!-- Action Area: Passcode Badge & Quick Delete Button -->
+      <div class="tile-actions-area">
+        <div
+          v-if="item.passcode || item.password"
+          class="tile-passcode-badge"
+          @click.stop.prevent="copyPasscode"
+          :title="`Copiar código / contraseña`"
+        >
+          <i :class="copiedPasscode ? 'fas fa-check' : 'fas fa-key'"></i>
+          <span class="passcode-val">{{ copiedPasscode ? '¡Copiado!' : (showPasscode ? (item.passcode || item.password) : '••••••') }}</span>
+          <button
+            type="button"
+            class="eye-mini-btn"
+            @click.stop.prevent="showPasscode = !showPasscode"
+            :title="showPasscode ? 'Ocultar código' : 'Mostrar código'"
+          >
+            <i :class="showPasscode ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+
+        <!-- Quick 1-click Delete Button -->
+        <button
+          v-if="!isAddNew"
+          type="button"
+          class="tile-quick-delete-btn"
+          @click.stop.prevent="quickDeleteItem"
+          title="Eliminar este servicio"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
       <!-- Edit icon (displayed only when in edit mode) -->
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
@@ -80,6 +103,7 @@ import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+import ConfigSavingMixin from '@/mixins/ConfigSaving';
 
 const EditItem = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditItem.vue'));
 import StoreKeys from '@/utils/StoreMutations';
@@ -89,7 +113,7 @@ import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'Item',
-  mixins: [ItemMixin],
+  mixins: [ItemMixin, ConfigSavingMixin],
   props: {
     itemSize: { type: String, default: '' },
     parentSectionTitle: { type: String, default: '' }, // Title of parent section (for add new)
@@ -126,6 +150,18 @@ export default {
       return `size-${size} ${!this.itemIcon ? 'short' : ''} `
         + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
+    cleanDescription() {
+      const desc = this.item.description || '';
+      if (!desc) return '';
+      if (desc.includes('•')) {
+        const parts = desc.split('•');
+        return parts.slice(1).join('•').trim();
+      }
+      if (desc.toLowerCase().startsWith('usuario:')) {
+        return '';
+      }
+      return desc;
+    },
     /* Used by certain themes (material), to show animated CSS icon */
     unicodeOpeningIcon() {
       switch (this.accumulatedTarget) {
@@ -145,6 +181,9 @@ export default {
     return {
       editMenuOpen: false,
       titleTruncated: false,
+      copiedPasscode: false,
+      copiedUsername: false,
+      showPasscode: false,
     };
   },
   watch: {
@@ -264,6 +303,55 @@ export default {
       const payload = { itemId: this.item.id, sectionName: parentSection.name };
       this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
       this.closeContextMenu();
+    },
+    copyPasscode() {
+      const code = this.item.passcode || this.item.password;
+      if (!code) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(() => {
+          this.copiedPasscode = true;
+          setTimeout(() => { this.copiedPasscode = false; }, 2000);
+        });
+      } else {
+        const temp = document.createElement('textarea');
+        temp.value = code;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        this.copiedPasscode = true;
+        setTimeout(() => { this.copiedPasscode = false; }, 2000);
+      }
+    },
+    copyUsername() {
+      const user = this.item.username;
+      if (!user) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(user).then(() => {
+          this.copiedUsername = true;
+          setTimeout(() => { this.copiedUsername = false; }, 2000);
+        });
+      } else {
+        const temp = document.createElement('textarea');
+        temp.value = user;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        this.copiedUsername = true;
+        setTimeout(() => { this.copiedUsername = false; }, 2000);
+      }
+    },
+    async quickDeleteItem() {
+      if (!confirm(`¿Eliminar el servicio "${this.item.title}"?`)) return;
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.item.id);
+      if (parentSection) {
+        const payload = { itemId: this.item.id, sectionName: parentSection.name };
+        this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
+        const fullConfig = this.$store.state.config;
+        await this.writeConfigToDisk(fullConfig);
+        this.saveConfigLocally(fullConfig);
+      }
     },
   },
   mounted() {
@@ -457,16 +545,14 @@ p.description {
   /* Medium Tile Specific Themes */
   &.size-medium {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     height: auto;
-    div img {
-      width: 2.5rem;
-      margin-bottom: 0.25rem;
-    }
+    width: 100%;
     .tile-title {
       min-width: 0;
-      max-width: min(160px, 100%);
+      flex: 1 1 auto;
+      max-width: none;
       &.no-icon {
         text-align: left;
         width: 100%;
@@ -522,6 +608,73 @@ a.item.is-edit-mode {
   &.size-medium .indicators-container { top: 1rem; }
   &.size-small .indicators-container { right: 1rem; }
   &.size-large .indicators-container { top: 1.5rem; }
+}
+
+.tile-passcode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all 0.15s ease;
+  z-index: 2;
+
+  &:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+  }
+
+  .passcode-val {
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .eye-mini-btn {
+    background: transparent;
+    border: none;
+    padding: 0 2px;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 0.75rem;
+    &:hover {
+      color: #0f172a;
+    }
+  }
+}
+
+.tile-quick-delete-btn {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  color: #64748b !important;
+  font-size: 0.75rem !important;
+  padding: 4px 7px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.35 !important;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    opacity: 1 !important;
+    background: rgba(225, 29, 72, 0.2) !important;
+    border-color: rgba(225, 29, 72, 0.5) !important;
+    color: #f43f5e !important;
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.3) !important;
+  }
+}
+
+.item:hover .tile-quick-delete-btn {
+  opacity: 0.75 !important;
 }
 
 </style>

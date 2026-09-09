@@ -30,7 +30,7 @@ const printWelcomeMessage = () => {
       console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
     })
     .catch(() => {
-      console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
+      console.log(`Thin server has started (${port})`); // eslint-disable-line no-console
     });
 };
 
@@ -40,8 +40,9 @@ http.createServer(app)
     printWelcomeMessage();
   })
   .on('error', (err) => {
-    console.warn('Unable to start Dashy\'s Node server\n', err); // eslint-disable-line no-console
+    console.warn('Unable to start Thin\'s Node server\n', err); // eslint-disable-line no-console
   });
 
 /* Check, and if possible start SSL server too */
 sslServer.startSSLServer(app);
+

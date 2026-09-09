@@ -12,11 +12,12 @@
       <path v-if="siPath" :d="siPath" />
     </svg>
     <!-- Standard image asset icon -->
-    <img v-else-if="icon" :src="iconPath" @error="onImageError" loading="lazy"
-      :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
+    <img v-else-if="icon && !broken" :src="iconPath" @error="onImageError" loading="lazy"
+      :class="`tile-icon ${size}`"
+      alt="icon"
     />
-    <!-- Icon could not load/ broken url -->
-    <BrokenImage v-if="broken" :class="`missing-image ${size}`" />
+    <!-- Icon fallback (sleek vector icon) -->
+    <i v-else-if="broken" class="fas fa-cube quant-fallback-icon"></i>
   </div>
 </template>
 
@@ -263,12 +264,16 @@ export default {
       }
       this.attemptedFallback = true;
     },
-    /* Returns fallback URL for icon types that have one, else undefined */
+    /* Returns fallback URL for icon types that have one, else Google favicon */
     getFallbackIcon() {
       const iconType = this.iconType || '';
       if (iconType.includes('favicon')) return this.getFavicon(this.url, 'local');
       if (iconType === 'generative') return this.getGenerativeIcon(this.url, iconCdns.generativeFallback);
       if (iconType === 'home-lab-icons') return this.getHomeLabIcon(this.icon, iconCdns.homeLabIconsFallback);
+      if (this.url && this.url.includes('http')) {
+        const host = this.getHostName(this.url);
+        if (host) return `https://www.google.com/s2/favicons?sz=128&domain_url=${host}`;
+      }
       return undefined;
     },
   },

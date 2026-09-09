@@ -1,7 +1,7 @@
 const defaults = {
   /* Default pageInfo object, used if user does not specify their own */
   pageInfo: {
-    title: 'Dashy',
+    title: 'Thin',
     description: '',
     navLinks: [],
     footer: '',

@@ -1,204 +1,270 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Lissy93/dashy/master/src/utils/config/ConfigSchema.json
----
-pageInfo:
-  title: Nexus Hub
-  description: Personal & Business Command Center
-  navLinks: []
 appConfig:
   theme: default
   layout: auto
   iconSize: medium
   faviconApi: google
+  language: es
   hideComponents:
     hideNav: true
     hideSearch: false
     hideSettings: true
-  customCss: |-
-    body, html, #app {
-      background: #f8fafc !important;
-      color: #0f172a !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif !important;
+  customCss: >-
+    @import
+    url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+
+    body, html, #app, #thin {
+      background: #080c14 !important;
+      background-image: radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.12) 0%, rgba(8, 12, 20, 1) 80%) !important;
+      color: #f1f5f9 !important;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
       -webkit-font-smoothing: antialiased !important;
     }
+
+
+    /* Executive Header */
+
     header.site-header, header {
-      background: #ffffff !important;
-      border-bottom: 1px solid #e2e8f0 !important;
-      padding: 1.25rem 2.5rem !important;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
+      background: rgba(15, 23, 42, 0.85) !important;
+      backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding: 1.15rem 2.5rem !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
-    header h1, .page-titles h1 {
-      color: #0f172a !important;
-      font-size: 1.7rem !important;
-      font-weight: 800 !important;
-      letter-spacing: -0.03em !important;
-      margin: 0 !important;
-    }
-    .page-titles span.subtitle {
-      color: #64748b !important;
-      font-size: 0.92rem !important;
-      font-weight: 500 !important;
-      margin-top: 3px !important;
-    }
-    .options-outer, .settings-outer, footer, .indicators-container, .opening-method-icon {
+
+
+    .options-outer, .settings-outer, footer, .indicators-container,
+    .opening-method-icon {
       display: none !important;
     }
+
+
+    /* Institutional Search Bar */
+
     .filter-container, section.filter-container {
       display: flex !important;
       justify-content: center !important;
       background: transparent !important;
-      padding: 1.25rem 1rem 0.75rem 1rem !important;
+      padding: 1.25rem 1rem 0.5rem 1rem !important;
     }
+
+
     .filter-container form {
-      max-width: 580px !important;
+      max-width: 680px !important;
       width: 100% !important;
-      background: #ffffff !important;
-      border: 1.5px solid #cbd5e1 !important;
-      border-radius: 12px !important;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
-      padding: 0.6rem 1.2rem !important;
+      background: rgba(17, 24, 39, 0.92) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 14px !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+      padding: 0.75rem 1.4rem !important;
       display: flex !important;
       align-items: center !important;
-      transition: all 0.2s ease !important;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+
+
     .filter-container form:focus-within {
-      border-color: #2563eb !important;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
+      border-color: #3b82f6 !important;
+      background: rgba(17, 24, 39, 1) !important;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25), 0 12px 32px rgba(0, 0, 0, 0.5) !important;
     }
+
+
     .filter-container input#filter-tiles {
       font-size: 1rem !important;
-      color: #0f172a !important;
+      color: #f8fafc !important;
       border: none !important;
       outline: none !important;
       background: transparent !important;
       width: 100% !important;
+      font-family: inherit !important;
     }
+
+
+    .filter-container input#filter-tiles::placeholder {
+      color: #64748b !important;
+    }
+
+
+    /* Grid layout */
+
     .item-group-container {
       display: grid !important;
-      grid-template-columns: repeat(auto-fit, minmax(370px, 1fr)) !important;
-      gap: 1.5rem !important;
-      max-width: 1750px !important;
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)) !important;
+      gap: 1.75rem !important;
+      max-width: 1880px !important;
       margin: 0 auto !important;
-      padding: 1rem 1.75rem 2.5rem 1.75rem !important;
+      padding: 1rem 2rem 7rem 2rem !important;
     }
+
+
+    /* Section Cards (Quant Firm Dark Glassmorphism) */
+
     .collapsable {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 16px !important;
-      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
-      padding: 1.35rem !important;
+      background: rgba(15, 23, 42, 0.78) !important;
+      backdrop-filter: blur(16px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 18px !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+      padding: 1.4rem !important;
       margin: 0 !important;
       height: auto !important;
       display: flex !important;
       flex-direction: column !important;
-      transition: all 0.2s ease !important;
+      transition: all 0.25s ease !important;
     }
+
+
+    .collapsable:hover {
+      border-color: rgba(255, 255, 255, 0.15) !important;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4) !important;
+    }
+
+
     .section-header {
-      margin-bottom: 1rem !important;
-      padding-bottom: 0.75rem !important;
-      border-bottom: 1px solid #f1f5f9 !important;
+      margin-bottom: 1.15rem !important;
+      padding-bottom: 0.85rem !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
     }
+
+
     .section-header h3 {
-      color: #0f172a !important;
-      font-size: 1.15rem !important;
+      color: #f8fafc !important;
+      font-size: 0.95rem !important;
       font-weight: 700 !important;
-      letter-spacing: -0.02em !important;
+      letter-spacing: 0.06em !important;
       margin: 0 !important;
       display: flex !important;
       align-items: center !important;
       gap: 10px !important;
+      text-transform: uppercase !important;
     }
+
+
     .section-header i, .section-header svg {
-      color: #2563eb !important;
       font-size: 1.1rem !important;
     }
+
+
     .there-are-items {
       display: grid !important;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+      grid-template-columns: 1fr !important;
       gap: 10px !important;
       padding: 2px !important;
       height: auto !important;
       overflow: visible !important;
     }
+
+
     .item-wrapper {
       margin: 0 !important;
       min-width: 0 !important;
       width: 100% !important;
       display: flex !important;
     }
+
+
+    /* Tile Items */
+
     .item-wrapper .item, a.item {
       display: flex !important;
-      flex-direction: row-reverse !important;
-      justify-content: flex-end !important;
+      flex-direction: row !important;
+      justify-content: flex-start !important;
       align-items: center !important;
       width: 100% !important;
       min-width: 0 !important;
       box-sizing: border-box !important;
-      padding: 9px 12px !important;
+      padding: 12px 16px !important;
       margin: 0 !important;
-      gap: 12px !important;
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 12px !important;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+      gap: 14px !important;
+      background: rgba(30, 41, 59, 0.5) !important;
+      border: 1px solid rgba(255, 255, 255, 0.07) !important;
+      border-radius: 14px !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
       text-decoration: none !important;
       position: relative !important;
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+
+
     .item-wrapper .item:hover, a.item:hover {
-      background: #ffffff !important;
-      border-color: #2563eb !important;
+      background: rgba(30, 41, 59, 0.92) !important;
+      border-color: rgba(59, 130, 246, 0.55) !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.04) !important;
+      box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.28), 0 4px 10px rgba(0, 0, 0, 0.35) !important;
     }
+
+
+    /* Icon Container */
+
     .item-icon {
-      width: 38px !important;
-      height: 38px !important;
-      min-width: 38px !important;
-      max-width: 38px !important;
-      border-radius: 10px !important;
-      background: #f8fafc !important;
+      width: 44px !important;
+      height: 44px !important;
+      min-width: 44px !important;
+      max-width: 44px !important;
+      border-radius: 12px !important;
+      background: rgba(15, 23, 42, 0.85) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       flex-shrink: 0 !important;
-      padding: 5px !important;
+      padding: 7px !important;
       box-sizing: border-box !important;
-      border: 1px solid #e2e8f0 !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
       margin: 0 !important;
-      transition: transform 0.18s ease !important;
+      transition: transform 0.2s ease !important;
     }
+
+
     .item-wrapper .item:hover .item-icon, a.item:hover .item-icon {
-      transform: scale(1.08) !important;
-      background: #eff6ff !important;
-      border-color: #bfdbfe !important;
+      transform: scale(1.06) !important;
+      border-color: #60a5fa !important;
+      background: rgba(37, 99, 235, 0.18) !important;
     }
+
+
     .tile-icon, .item-icon img {
-      width: 24px !important;
-      height: 24px !important;
-      max-width: 24px !important;
-      max-height: 24px !important;
-      min-width: 24px !important;
-      min-height: 24px !important;
+      width: 26px !important;
+      height: 26px !important;
+      max-width: 26px !important;
+      max-height: 26px !important;
+      min-width: 26px !important;
+      min-height: 26px !important;
       object-fit: contain !important;
       border-radius: 4px !important;
       margin: 0 !important;
       display: block !important;
     }
+
+
     .item-icon svg.simple-icons {
       width: 22px !important;
       height: 22px !important;
       max-width: 22px !important;
       max-height: 22px !important;
+      fill: #f8fafc !important;
     }
+
+
     .item-icon i {
-      font-size: 1.15rem !important;
-      color: #2563eb !important;
+      font-size: 1.2rem !important;
+      color: #38bdf8 !important;
     }
+
+
+    .quant-fallback-icon {
+      color: #38bdf8 !important;
+      font-size: 1.2rem !important;
+    }
+
+
+    /* Text & Content Layout */
+
     .tile-title {
-      flex: 1 1 auto !important;
+      flex: 1 1 0% !important;
       min-width: 0 !important;
       width: auto !important;
       height: auto !important;
@@ -208,13 +274,22 @@ appConfig:
       display: flex !important;
       flex-direction: column !important;
       justify-content: center !important;
-      line-height: 1.25 !important;
+      gap: 3px !important;
       overflow: hidden !important;
     }
+
+
+    .tile-main-row {
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
+    }
+
+
     .tile-title span.text {
-      color: #0f172a !important;
-      font-weight: 600 !important;
-      font-size: 0.88rem !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      font-size: 0.98rem !important;
       letter-spacing: -0.01em !important;
       white-space: nowrap !important;
       overflow: hidden !important;
@@ -222,244 +297,170 @@ appConfig:
       display: block !important;
       width: 100% !important;
     }
-    .tile-title p.description {
-      display: block !important;
-      color: #64748b !important;
-      font-size: 0.74rem !important;
-      font-weight: 400 !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      margin: 2px 0 0 0 !important;
-      line-height: 1.2 !important;
+
+
+    .tile-sub-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      flex-wrap: wrap !important;
       width: 100% !important;
     }
 
+
+    .meta-desc {
+      color: #94a3b8 !important;
+      font-size: 0.74rem !important;
+      font-weight: 500 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+
+    .meta-sep {
+      color: #475569 !important;
+      font-size: 0.7rem !important;
+    }
+
+
+    /* Credentials & Action Area */
+
+    .tile-actions-area {
+      margin-left: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      flex-shrink: 0 !important;
+    }
+
+
+    /* Discrete Monospace Username Badge */
+
+    .tile-username-badge {
+      background: rgba(15, 23, 42, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.09) !important;
+      border-radius: 6px !important;
+      padding: 2px 7px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      font-size: 0.69rem !important;
+      color: #94a3b8 !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      cursor: pointer !important;
+      transition: all 0.15s ease !important;
+    }
+
+
+    .tile-username-badge:hover {
+      background: rgba(56, 189, 248, 0.15) !important;
+      border-color: rgba(56, 189, 248, 0.4) !important;
+      color: #38bdf8 !important;
+    }
+
+
+    .tile-username-badge i {
+      font-size: 0.68rem !important;
+    }
+
+
+    /* Executive Passcode Badge */
+
+    .tile-passcode-badge {
+      background: rgba(15, 23, 42, 0.92) !important;
+      border: 1px solid rgba(59, 130, 246, 0.35) !important;
+      border-radius: 8px !important;
+      padding: 4px 10px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 0.72rem !important;
+      color: #60a5fa !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      cursor: pointer !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      transition: all 0.15s ease !important;
+    }
+
+
+    .tile-passcode-badge:hover {
+      background: rgba(37, 99, 235, 0.25) !important;
+      border-color: #60a5fa !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.35) !important;
+    }
+
+
+    .tile-passcode-badge .eye-mini-btn {
+      color: #64748b !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 2px !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+
+
+    .tile-passcode-badge .eye-mini-btn:hover {
+      color: #f8fafc !important;
+    }
+
+
+    /* Section Category Glowing Accents */
+
+    .collapsable:nth-child(8n+1) .section-header i, .collapsable:nth-child(8n+1)
+    .section-header svg { color: #38bdf8 !important; }
+
+    .collapsable:nth-child(8n+2) .section-header i, .collapsable:nth-child(8n+2)
+    .section-header svg { color: #10b981 !important; }
+
+    .collapsable:nth-child(8n+3) .section-header i, .collapsable:nth-child(8n+3)
+    .section-header svg { color: #f59e0b !important; }
+
+    .collapsable:nth-child(8n+4) .section-header i, .collapsable:nth-child(8n+4)
+    .section-header svg { color: #818cf8 !important; }
+
+    .collapsable:nth-child(8n+5) .section-header i, .collapsable:nth-child(8n+5)
+    .section-header svg { color: #ec4899 !important; }
+
+    .collapsable:nth-child(8n+6) .section-header i, .collapsable:nth-child(8n+6)
+    .section-header svg { color: #eab308 !important; }
+
+    .collapsable:nth-child(8n+7) .section-header i, .collapsable:nth-child(8n+7)
+    .section-header svg { color: #06b6d4 !important; }
+
+    .collapsable:nth-child(8n+8) .section-header i, .collapsable:nth-child(8n+8)
+    .section-header svg { color: #a855f7 !important; }
+pageInfo:
+  title: Nexus Terminal
+  description: Sovereign Command & Capital Operations
+  navLinks: []
 sections:
-  - name: Taller & Automoción
-    icon: fas fa-wrench
-    items:
-      - title: Mercedes-Benz
-        description: Portal Mercedes-Benz
-        url: https://login.mercedes-benz.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mercedes-benz.com
-      - title: Tesla
-        description: Portal Tesla Auth
-        url: https://auth.tesla.com
-        icon: https://cdn.simpleicons.org/tesla/E82127
-      - title: 4DC Workshop (Romo)
-        description: Gestión de taller
-        url: https://autotalleresromosa.4dcworkshop.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=4dcworkshop.com
-      - title: Cita Romo
-        description: Sistema de citas
-        url: https://citaromo.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=citaromo.es
-      - title: Vacaciones Romo
-        description: Portal interno
-        url: https://vacaciones.romo-mercedesbenz.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mercedes-benz.com
-      - title: Davasa B2B
-        description: Recambios Davasa
-        url: https://b2b.davasaautomocion.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=davasaautomocion.com
-      - title: Nex Tyres B2B
-        description: Distribuidor neumáticos
-        url: https://b2b.nex.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=nex.es
-      - title: M-Recambios
-        description: Facturación y recambios
-        url: https://facturacion.m-recambios.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=m-recambios.com
-      - title: Portal ITV
-        description: Citas y gestión ITV
-        url: https://portalitv.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=portalitv.com
-      - title: Signus
-        description: Gestión neumáticos usados
-        url: https://signus.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=signus.es
-      - title: CATOR
-        description: Área clientes aceites
-        url: https://areaclientes.cator-sa.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=cator-sa.com
-      - title: ARC Racing
-        description: Reparación de llantas
-        url: https://arc-racing.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=arc-racing.com
-
-  - name: Banca & Pagos
-    icon: fas fa-wallet
-    items:
-      - title: CaixaBank
-        description: Banca online
-        url: https://caixabank.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=caixabank.es
-      - title: Banco Santander
-        description: Acceso particulares
-        url: https://particulares.bancosantander.es
-        icon: https://cdn.simpleicons.org/santander/EC0000
-      - title: PayPal
-        description: Pagos y transferencias
-        url: https://paypal.com
-        icon: https://cdn.simpleicons.org/paypal/00457C
-      - title: Stripe Dashboard
-        description: Panel de control cobros
-        url: https://dashboard.stripe.com
-        icon: https://cdn.simpleicons.org/stripe/635BFF
-      - title: Redsys TPV
-        description: Acceso pasarela TPV
-        url: https://acceso.redsys.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=redsys.es
-      - title: Canales Redsys
-        description: Gestión comercios
-        url: https://canales.redsys.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=redsys.es
-      - title: Ace Money Transfer
-        description: Envíos de dinero
-        url: https://acemoneytransfer.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=acemoneytransfer.com
-      - title: Grenke Renting
-        description: Portal cliente financiación
-        url: https://customerportal.grenke.net
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=grenke.net
-
-  - name: Transporte & Taxis
-    icon: fas fa-taxi
-    items:
-      - title: FREE NOW
-        description: Portal de flota / conductor
-        url: https://portal.free-now.com
-        icon: https://cdn.simpleicons.org/freenow/EE0000
-      - title: Barcelona Taxis
-        description: Servicios y traslados
-        url: https://barcelonastaxis.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=barcelonastaxis.com
-      - title: Bókun Extranet
-        description: Gestión de reservas
-        url: https://extranet.bokun.io
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bokun.io
-      - title: Taxi2BCN
-        description: Reservas traslados
-        url: https://taxi2bcn.bokun.io
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bokun.io
-      - title: EasyRide Admin
-        description: Panel de administración
-        url: https://easyride-admin.onrender.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=onrender.com
-
-  - name: Administración & Seguros
+  - name: Quant & Algorithmic Trading
+    icon: fas fa-chart-line
+    items: []
+  - name: Artificial Intelligence & Compute
+    icon: fas fa-brain
+    items: []
+  - name: Cloud Infrastructure & Automation
+    icon: fas fa-server
+    items: []
+  - name: Encrypted Vault, Privacy & Capital
+    icon: fas fa-shield-alt
+    items: []
+  - name: Enterprise, Fleet & Operations
+    icon: fas fa-building
+    items: []
+  - name: Administration, Legal & Government
     icon: fas fa-landmark
-    items:
-      - title: Feina Activa Gencat
-        description: Generalitat de Catalunya
-        url: https://feinaactiva.gencat.cat
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=gencat.cat
-      - title: ARC Residus Gencat
-        description: Declaración de residuos SDR
-        url: https://sdr.arc.cat
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=gencat.cat
-      - title: Asepeyo
-        description: Oficina Virtual Mutua
-        url: https://oficinavirtual.asepeyo.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=asepeyo.es
-      - title: Mapfre
-        description: Mi Cuenta Seguros
-        url: https://micuenta.mapfre.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mapfre.es
-      - title: Mutua Madrileña
-        description: Acceso asegurados
-        url: https://sso.mutua.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mutua.es
-      - title: Aigües de Barcelona
-        description: Gestión de suministros
-        url: https://aiguesdebarcelona.cat
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=aiguesdebarcelona.cat
-      - title: Telefónica
-        description: Portal de autenticación
-        url: https://paut.telefonica.es
-        icon: https://cdn.simpleicons.org/telefonica/003245
-      - title: Universitat de Barcelona
-        description: Campus UB
-        url: https://ub.edu
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=ub.edu
-
-  - name: Cuentas & Herramientas
-    icon: fas fa-laptop-code
-    items:
-      - title: Microsoft Online
-        description: Acceso Office 365 / Outlook
-        url: https://login.microsoftonline.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=office.com
-      - title: Microsoft Account
-        description: Cuenta personal Microsoft
-        url: https://account.live.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=microsoft.com
-      - title: Apple ID
-        description: Gestión de cuenta Apple
-        url: https://appleid.apple.com
-        icon: https://cdn.simpleicons.org/apple/000000
-      - title: Samsung Account
-        description: Cuenta Samsung
-        url: https://account.samsung.com
-        icon: https://cdn.simpleicons.org/samsung/1428A0
-      - title: Router Local
-        description: Configuración 192.168.1.1
-        url: http://192.168.1.1
-        icon: fas fa-network-wired
-      - title: HP Connect
-        description: ID de cuenta HP
-        url: https://login3.id.hp.com
-        icon: https://cdn.simpleicons.org/hp/0096D6
-      - title: Sejda PDF
-        description: Editor y conversor PDF
-        url: https://sejda.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=sejda.com
-      - title: Formspree
-        description: Gestión de formularios
-        url: https://formspree.io
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=formspree.io
-      - title: Discord
-        description: Comunidad y chat
-        url: https://discord.com
-        icon: https://cdn.simpleicons.org/discord/5865F2
-
-  - name: Compras & Viajes
-    icon: fas fa-shopping-bag
-    items:
-      - title: BonÀrea
-        description: Portal clientes
-        url: https://portal.bonarea.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bonarea.com
-      - title: AliExpress
-        description: Compras y envíos
-        url: https://es.aliexpress.com
-        icon: https://cdn.simpleicons.org/aliexpress/FF4747
-      - title: Sklum
-        description: Mobiliario y decoración
-        url: https://sklum.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=sklum.com
-      - title: Material Escolar
-        description: Papelería y suministros
-        url: https://materialescolar.es
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=materialescolar.es
-      - title: TripAdvisor
-        description: Opiniones y viajes
-        url: https://tripadvisor.com
-        icon: https://cdn.simpleicons.org/tripadvisor/34E0A1
-      - title: Trip.com
-        description: Vuelos y hoteles
-        url: https://trip.com
-        icon: https://cdn.simpleicons.org/tripdotcom/2681FF
-      - title: Logitravel
-        description: Afiliados y reservas
-        url: https://partner.affiliate.logitravel.com
-        icon: https://www.google.com/s2/favicons?sz=128&domain_url=logitravel.com
-      - title: Instagram
-        description: Red social
-        url: https://instagram.com
-        icon: https://cdn.simpleicons.org/instagram/E4405F
-      - title: Facebook
-        description: Red social
-        url: https://facebook.com
-        icon: https://cdn.simpleicons.org/facebook/0866FF
+    items: []
+  - name: Creative Media & 3D Engineering
+    icon: fas fa-cubes
+    items: []
+  - name: Global Communication & Social Media
+    icon: fas fa-share-alt
+    items: []
+pages: []

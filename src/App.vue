@@ -1,5 +1,5 @@
 <template>
-  <div id="dashy" :style="topLevelStyleModifications" :class="subPageClassName">
+  <div id="thin" :style="topLevelStyleModifications" :class="subPageClassName">
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
@@ -7,6 +7,7 @@
     <CriticalError v-if="hasCriticalError" />
     <Footer :text="footerText" v-if="footerVisible && !isFetching" />
     <RemoteConfigLoader v-if="!isFetching" />
+    <TerminalSettingsModal :visible="showSettingsModal" @close="showSettingsModal = false" />
   </div>
 </template>
 <script>
@@ -17,6 +18,7 @@ import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.
 import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import RemoteConfigLoader from '@/components/Configuration/RemoteConfigLoader.vue';
+import TerminalSettingsModal from '@/components/Settings/TerminalSettingsModal.vue';
 import { welcomeMsg } from '@/utils/logging/CoolConsole';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import { syncPageMeta } from '@/utils/PageMeta';
@@ -40,10 +42,12 @@ export default {
     EditModeTopBanner,
     CriticalError,
     RemoteConfigLoader,
+    TerminalSettingsModal,
   },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
+      showSettingsModal: false,
     };
   },
   watch: {
@@ -237,6 +241,9 @@ export default {
       e.preventDefault();
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
+    openTerminalSettings() {
+      this.showSettingsModal = true;
+    },
   },
   /* Basic initialization tasks on app load. Config is already loaded by router.beforeEach. */
   mounted() {
@@ -245,6 +252,10 @@ export default {
     this.applyCustomStyles();
     this.hideLoader();
     welcomeMsg();
+    window.addEventListener('open-terminal-settings', this.openTerminalSettings);
+  },
+  beforeUnmount() {
+    window.removeEventListener('open-terminal-settings', this.openTerminalSettings);
   },
 };
 </script>
