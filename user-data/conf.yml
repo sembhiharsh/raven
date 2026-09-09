@@ -8,6 +8,7 @@ appConfig:
   theme: default
   layout: auto
   iconSize: medium
+  faviconApi: google
   hideComponents:
     hideNav: true
     hideSearch: false
@@ -16,115 +17,224 @@ appConfig:
     body, html, #app {
       background: #f8fafc !important;
       color: #0f172a !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif !important;
+      -webkit-font-smoothing: antialiased !important;
     }
     header.site-header, header {
       background: #ffffff !important;
       border-bottom: 1px solid #e2e8f0 !important;
-      padding: 1.25rem 2rem !important;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+      padding: 1.25rem 2.5rem !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
     }
     header h1, .page-titles h1 {
       color: #0f172a !important;
-      font-size: 1.75rem !important;
+      font-size: 1.7rem !important;
       font-weight: 800 !important;
-      letter-spacing: -0.025em !important;
+      letter-spacing: -0.03em !important;
+      margin: 0 !important;
     }
     .page-titles span.subtitle {
       color: #64748b !important;
-      font-size: 0.95rem !important;
+      font-size: 0.92rem !important;
+      font-weight: 500 !important;
+      margin-top: 3px !important;
     }
-    .options-outer, .settings-outer, footer {
+    .options-outer, .settings-outer, footer, .indicators-container, .opening-method-icon {
       display: none !important;
     }
     .filter-container, section.filter-container {
       display: flex !important;
       justify-content: center !important;
       background: transparent !important;
-      padding: 1.25rem 1rem !important;
+      padding: 1.25rem 1rem 0.75rem 1rem !important;
     }
     .filter-container form {
-      max-width: 620px !important;
+      max-width: 580px !important;
       width: 100% !important;
       background: #ffffff !important;
-      border: 2px solid #cbd5e1 !important;
+      border: 1.5px solid #cbd5e1 !important;
       border-radius: 12px !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
-      padding: 0.5rem 1rem !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+      padding: 0.6rem 1.2rem !important;
+      display: flex !important;
+      align-items: center !important;
       transition: all 0.2s ease !important;
     }
     .filter-container form:focus-within {
       border-color: #2563eb !important;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
     }
     .filter-container input#filter-tiles {
-      font-size: 1.05rem !important;
+      font-size: 1rem !important;
       color: #0f172a !important;
       border: none !important;
       outline: none !important;
       background: transparent !important;
+      width: 100% !important;
+    }
+    .item-group-container {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(370px, 1fr)) !important;
+      gap: 1.5rem !important;
+      max-width: 1750px !important;
+      margin: 0 auto !important;
+      padding: 1rem 1.75rem 2.5rem 1.75rem !important;
     }
     .collapsable {
       background: #ffffff !important;
       border: 1px solid #e2e8f0 !important;
-      border-radius: 14px !important;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
-      padding: 1.25rem !important;
-      margin-bottom: 2rem !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
+      padding: 1.35rem !important;
+      margin: 0 !important;
+      height: auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      transition: all 0.2s ease !important;
+    }
+    .section-header {
+      margin-bottom: 1rem !important;
+      padding-bottom: 0.75rem !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
     }
     .section-header h3 {
       color: #0f172a !important;
-      font-size: 1.2rem !important;
+      font-size: 1.15rem !important;
       font-weight: 700 !important;
-      letter-spacing: -0.01em !important;
-      margin-bottom: 1rem !important;
+      letter-spacing: -0.02em !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+    .section-header i, .section-header svg {
+      color: #2563eb !important;
+      font-size: 1.1rem !important;
+    }
+    .there-are-items {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+      gap: 10px !important;
+      padding: 2px !important;
+      height: auto !important;
+      overflow: visible !important;
     }
     .item-wrapper {
-      margin: 0.35rem !important;
+      margin: 0 !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      display: flex !important;
     }
     .item-wrapper .item, a.item {
       display: flex !important;
+      flex-direction: row-reverse !important;
+      justify-content: flex-end !important;
       align-items: center !important;
-      min-width: 220px !important;
-      max-width: none !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      padding: 9px 12px !important;
+      margin: 0 !important;
+      gap: 12px !important;
       background: #ffffff !important;
-      border: 1.5px solid #cbd5e1 !important;
-      border-radius: 10px !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04) !important;
-      padding: 0.9rem 1.2rem !important;
-      cursor: pointer !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
       text-decoration: none !important;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      position: relative !important;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .item-wrapper .item:hover, a.item:hover {
       background: #ffffff !important;
       border-color: #2563eb !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.18) !important;
+      box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.04) !important;
+    }
+    .item-icon {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      max-width: 38px !important;
+      border-radius: 10px !important;
+      background: #f8fafc !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      padding: 5px !important;
+      box-sizing: border-box !important;
+      border: 1px solid #e2e8f0 !important;
+      margin: 0 !important;
+      transition: transform 0.18s ease !important;
+    }
+    .item-wrapper .item:hover .item-icon, a.item:hover .item-icon {
+      transform: scale(1.08) !important;
+      background: #eff6ff !important;
+      border-color: #bfdbfe !important;
+    }
+    .tile-icon, .item-icon img {
+      width: 24px !important;
+      height: 24px !important;
+      max-width: 24px !important;
+      max-height: 24px !important;
+      min-width: 24px !important;
+      min-height: 24px !important;
+      object-fit: contain !important;
+      border-radius: 4px !important;
+      margin: 0 !important;
+      display: block !important;
+    }
+    .item-icon svg.simple-icons {
+      width: 22px !important;
+      height: 22px !important;
+      max-width: 22px !important;
+      max-height: 22px !important;
+    }
+    .item-icon i {
+      font-size: 1.15rem !important;
+      color: #2563eb !important;
     }
     .tile-title {
-      max-width: none !important;
-      width: 100% !important;
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      width: auto !important;
+      height: auto !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      text-align: left !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      line-height: 1.25 !important;
+      overflow: hidden !important;
     }
     .tile-title span.text {
       color: #0f172a !important;
-      font-weight: 700 !important;
-      font-size: 1rem !important;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      letter-spacing: -0.01em !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
       display: block !important;
+      width: 100% !important;
     }
     .tile-title p.description {
+      display: block !important;
       color: #64748b !important;
-      font-size: 0.85rem !important;
-      font-weight: 500 !important;
-      margin-top: 0.2rem !important;
+      font-size: 0.74rem !important;
+      font-weight: 400 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      margin: 2px 0 0 0 !important;
+      line-height: 1.2 !important;
+      width: 100% !important;
     }
-    .tile-icon, .item-icon {
-      width: 28px !important;
-      height: 28px !important;
-      min-width: 28px !important;
-      margin-right: 0.75rem !important;
-      color: #2563eb !important;
-    }
+
 sections:
   - name: Taller & Automoción
     icon: fas fa-wrench
@@ -132,219 +242,224 @@ sections:
       - title: Mercedes-Benz
         description: Portal Mercedes-Benz
         url: https://login.mercedes-benz.com
-        icon: si-mercedes
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mercedes-benz.com
       - title: Tesla
         description: Portal Tesla Auth
         url: https://auth.tesla.com
-        icon: si-tesla
+        icon: https://cdn.simpleicons.org/tesla/E82127
       - title: 4DC Workshop (Romo)
         description: Gestión de taller
         url: https://autotalleresromosa.4dcworkshop.com
-        icon: fas fa-car
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=4dcworkshop.com
       - title: Cita Romo
         description: Sistema de citas
         url: https://citaromo.es
-        icon: fas fa-calendar-check
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=citaromo.es
       - title: Vacaciones Romo
         description: Portal interno
         url: https://vacaciones.romo-mercedesbenz.es
-        icon: fas fa-calendar-alt
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mercedes-benz.com
       - title: Davasa B2B
         description: Recambios Davasa
         url: https://b2b.davasaautomocion.com
-        icon: fas fa-cogs
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=davasaautomocion.com
       - title: Nex Tyres B2B
         description: Distribuidor neumáticos
         url: https://b2b.nex.es
-        icon: fas fa-circle-notch
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=nex.es
       - title: M-Recambios
         description: Facturación y recambios
         url: https://facturacion.m-recambios.com
-        icon: fas fa-file-invoice
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=m-recambios.com
       - title: Portal ITV
         description: Citas y gestión ITV
         url: https://portalitv.com
-        icon: fas fa-clipboard-check
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=portalitv.com
       - title: Signus
         description: Gestión neumáticos usados
         url: https://signus.es
-        icon: fas fa-recycle
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=signus.es
       - title: CATOR
         description: Área clientes aceites
         url: https://areaclientes.cator-sa.com
-        icon: fas fa-oil-can
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=cator-sa.com
       - title: ARC Racing
         description: Reparación de llantas
         url: https://arc-racing.com
-        icon: fas fa-flag-checkered
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=arc-racing.com
+
   - name: Banca & Pagos
     icon: fas fa-wallet
     items:
       - title: CaixaBank
         description: Banca online
         url: https://caixabank.es
-        icon: fas fa-university
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=caixabank.es
       - title: Banco Santander
         description: Acceso particulares
         url: https://particulares.bancosantander.es
-        icon: fas fa-building
+        icon: https://cdn.simpleicons.org/santander/EC0000
       - title: PayPal
         description: Pagos y transferencias
         url: https://paypal.com
-        icon: si-paypal
+        icon: https://cdn.simpleicons.org/paypal/00457C
       - title: Stripe Dashboard
         description: Panel de control cobros
         url: https://dashboard.stripe.com
-        icon: si-stripe
+        icon: https://cdn.simpleicons.org/stripe/635BFF
       - title: Redsys TPV
         description: Acceso pasarela TPV
         url: https://acceso.redsys.es
-        icon: fas fa-credit-card
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=redsys.es
       - title: Canales Redsys
         description: Gestión comercios
         url: https://canales.redsys.es
-        icon: fas fa-network-wired
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=redsys.es
       - title: Ace Money Transfer
         description: Envíos de dinero
         url: https://acemoneytransfer.com
-        icon: fas fa-money-bill-wave
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=acemoneytransfer.com
       - title: Grenke Renting
         description: Portal cliente financiación
         url: https://customerportal.grenke.net
-        icon: fas fa-file-contract
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=grenke.net
+
   - name: Transporte & Taxis
     icon: fas fa-taxi
     items:
       - title: FREE NOW
         description: Portal de flota / conductor
         url: https://portal.free-now.com
-        icon: si-freenow
+        icon: https://cdn.simpleicons.org/freenow/EE0000
       - title: Barcelona Taxis
         description: Servicios y traslados
         url: https://barcelonastaxis.com
-        icon: fas fa-taxi
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=barcelonastaxis.com
       - title: Bókun Extranet
         description: Gestión de reservas
         url: https://extranet.bokun.io
-        icon: fas fa-globe
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bokun.io
       - title: Taxi2BCN
         description: Reservas traslados
         url: https://taxi2bcn.bokun.io
-        icon: fas fa-map-marker-alt
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bokun.io
       - title: EasyRide Admin
         description: Panel de administración
         url: https://easyride-admin.onrender.com
-        icon: fas fa-car-side
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=onrender.com
+
   - name: Administración & Seguros
     icon: fas fa-landmark
     items:
       - title: Feina Activa Gencat
         description: Generalitat de Catalunya
         url: https://feinaactiva.gencat.cat
-        icon: fas fa-briefcase
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=gencat.cat
       - title: ARC Residus Gencat
         description: Declaración de residuos SDR
         url: https://sdr.arc.cat
-        icon: fas fa-dumpster
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=gencat.cat
       - title: Asepeyo
         description: Oficina Virtual Mutua
         url: https://oficinavirtual.asepeyo.es
-        icon: fas fa-user-shield
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=asepeyo.es
       - title: Mapfre
         description: Mi Cuenta Seguros
         url: https://micuenta.mapfre.es
-        icon: fas fa-shield-alt
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mapfre.es
       - title: Mutua Madrileña
         description: Acceso asegurados
         url: https://sso.mutua.es
-        icon: fas fa-hand-holding-heart
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=mutua.es
       - title: Aigües de Barcelona
         description: Gestión de suministros
         url: https://aiguesdebarcelona.cat
-        icon: fas fa-tint
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=aiguesdebarcelona.cat
       - title: Telefónica
         description: Portal de autenticación
         url: https://paut.telefonica.es
-        icon: fas fa-phone
+        icon: https://cdn.simpleicons.org/telefonica/003245
       - title: Universitat de Barcelona
         description: Campus UB
         url: https://ub.edu
-        icon: fas fa-graduation-cap
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=ub.edu
+
   - name: Cuentas & Herramientas
     icon: fas fa-laptop-code
     items:
       - title: Microsoft Online
         description: Acceso Office 365 / Outlook
         url: https://login.microsoftonline.com
-        icon: si-microsoft
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=office.com
       - title: Microsoft Account
         description: Cuenta personal Microsoft
         url: https://account.live.com
-        icon: si-windows
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=microsoft.com
       - title: Apple ID
         description: Gestión de cuenta Apple
         url: https://appleid.apple.com
-        icon: si-apple
+        icon: https://cdn.simpleicons.org/apple/000000
       - title: Samsung Account
         description: Cuenta Samsung
         url: https://account.samsung.com
-        icon: si-samsung
+        icon: https://cdn.simpleicons.org/samsung/1428A0
       - title: Router Local
-        description: Configuración router 192.168.1.1
+        description: Configuración 192.168.1.1
         url: http://192.168.1.1
-        icon: fas fa-wifi
+        icon: fas fa-network-wired
       - title: HP Connect
         description: ID de cuenta HP
         url: https://login3.id.hp.com
-        icon: si-hp
+        icon: https://cdn.simpleicons.org/hp/0096D6
       - title: Sejda PDF
         description: Editor y conversor PDF
         url: https://sejda.com
-        icon: fas fa-file-pdf
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=sejda.com
       - title: Formspree
         description: Gestión de formularios
         url: https://formspree.io
-        icon: fas fa-envelope-open-text
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=formspree.io
       - title: Discord
         description: Comunidad y chat
         url: https://discord.com
-        icon: si-discord
+        icon: https://cdn.simpleicons.org/discord/5865F2
+
   - name: Compras & Viajes
     icon: fas fa-shopping-bag
     items:
       - title: BonÀrea
         description: Portal clientes
         url: https://portal.bonarea.com
-        icon: fas fa-store
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=bonarea.com
       - title: AliExpress
         description: Compras y envíos
         url: https://es.aliexpress.com
-        icon: si-aliexpress
+        icon: https://cdn.simpleicons.org/aliexpress/FF4747
       - title: Sklum
         description: Mobiliario y decoración
         url: https://sklum.com
-        icon: fas fa-couch
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=sklum.com
       - title: Material Escolar
         description: Papelería y suministros
         url: https://materialescolar.es
-        icon: fas fa-pencil-alt
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=materialescolar.es
       - title: TripAdvisor
         description: Opiniones y viajes
         url: https://tripadvisor.com
-        icon: si-tripadvisor
+        icon: https://cdn.simpleicons.org/tripadvisor/34E0A1
       - title: Trip.com
         description: Vuelos y hoteles
         url: https://trip.com
-        icon: fas fa-plane
+        icon: https://cdn.simpleicons.org/tripdotcom/2681FF
       - title: Logitravel
         description: Afiliados y reservas
         url: https://partner.affiliate.logitravel.com
-        icon: fas fa-suitcase
+        icon: https://www.google.com/s2/favicons?sz=128&domain_url=logitravel.com
       - title: Instagram
         description: Red social
         url: https://instagram.com
-        icon: si-instagram
+        icon: https://cdn.simpleicons.org/instagram/E4405F
       - title: Facebook
         description: Red social
         url: https://facebook.com
-        icon: si-facebook
+        icon: https://cdn.simpleicons.org/facebook/0866FF
